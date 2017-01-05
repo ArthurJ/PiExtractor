@@ -1,25 +1,24 @@
 import multiprocessing as mp
 from time import sleep
 from tools import time_it, apresentar, ask_pi_comparado, ask_parameters, print_relatorio, compare_pi_comparado
-from decimal import getcontext, ROUND_FLOOR, Decimal
+from decimal import getcontext, Decimal
 
 '''
 Created on 01/06/2011
-Editado em 2017/01/03
+Refactored on 2017/01/03
 '''
 __author__ = '@arthurj'
 
 
-def range8(*args):
-    return ((x, 8 * x) for x in range(*args))
-
-
-def spi(inicio, fim, digitos):
-    return sum(int(((4 << digitos) // (n8 + 1) -
-                    (2 << digitos) // (n8 + 4) -
-                    (1 << digitos) // (n8 + 5) -
-                    (1 << digitos) // (n8 + 6)) // (16 ** n))
-               for n, n8 in range8(inicio, fim))
+def spi(inicio, fim, digits):
+    quatro = 4 << digits
+    dois = 2 << digits
+    um = 1 << digits
+    return sum(int(((quatro // (n8 + 1)) -
+                    (dois // (n8 + 4)) -
+                    (um // (n8 + 5)) -
+                    (um // (n8 + 6))) // (16 ** n))
+               for n, n8 in ((x, 8 * x) for x in range(inicio, fim)))
 
 
 def separa_intervalos(ini, fim, num_de_partes, casas):
@@ -29,14 +28,14 @@ def separa_intervalos(ini, fim, num_de_partes, casas):
 
 
 def calc(args):
-    # Não é a a melhor das práticas, mas compensa na limpeza do código nesse caso
+    # Não é a a melhor das práticas, mas compensa na limpeza do código, nesse caso
     global mypi
     mypi += spi(args[0], args[1], args[2])
 
 
+@time_it(string_explicativa='\nTempo de conversão de Hexadecimal para Decimal: {} segundos')
 def float_hex_2_float(str_pi_hex_digits, precisao) -> Decimal:
     getcontext().prec = precisao
-    getcontext().rounding = ROUND_FLOOR
     mypi10 = Decimal(0)
     for i in range(len(str_pi_hex_digits) - 1, -1, -1):
         mypi10 += Decimal(int(str_pi_hex_digits[i], base=16) * 16 ** -i)
@@ -72,7 +71,7 @@ if __name__ == '__main__':
     engine(partes_do_processo, separa_intervalos(0, iteracoes, partes_do_processo, digitos))
 
     resultado = f'{mypi:x}'
-    print_relatorio(resultado, arquivo_saida, float_hex_2_float(resultado, int(iteracoes / 3.2)))
+    print_relatorio(resultado, arquivo_saida, float_hex_2_float(resultado, int(iteracoes)))
 
     if pi_comparado:
         compare_pi_comparado(pi_comparado, resultado)

@@ -55,7 +55,7 @@ def ask_pi_comparado(default='npix8k'):
 
 def ask_parameters(num_iteracoes=100, num_processos=int(mp.cpu_count() * .75), nome='meupix'):
     numero_de_iteracoes = int(input(f'Número de Iterações à realizar?\n[{num_iteracoes}] -> ') or num_iteracoes)
-    casas = 4 * int(numero_de_iteracoes * 1.01)
+    casas = 3*numero_de_iteracoes
     numero_de_processos = int(input(f'Dividir o processo em quantas partes?\n[{num_processos}] -> ') or num_processos)
     nome_arquivo = input(f'\nQual o nome do arquivo de saída?\n[{nome}] ->') or nome
 
@@ -66,7 +66,14 @@ def print_relatorio(result, nome_saida, converted_result):
     print('\n')
     print(f'Valor Hexadecimal: {result}')
 
-    print(f'\nValor Decimal: {converted_result}')
+    print(f'\nValor Decimal:')
+    converted_result = str(converted_result)
+    for i in range(len(converted_result)):
+        print(f'{converted_result[i]}', end='')
+        if i % 100 == 0 and i != 0:
+            print()
+    print()
+
     print(f'\nNúmero de dígitos obtidos: {str(len(result))}')
 
     nome_saida = open(nome_saida, 'w')
