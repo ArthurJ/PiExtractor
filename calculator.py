@@ -30,6 +30,9 @@ def separa_intervalos(ini, fim, num_de_partes, casas):
 def calc(args):
     # Não é a a melhor das práticas, mas compensa na limpeza do código, nesse caso
     global mypi
+    # TODO: Talvez uma alteração aqui possa melhorar o desempenho
+    # Fazendo o spi trabalhar com números menores, e aqui dando o "shift" necessário no bloco calculado
+    # antes de adicionar ao mypi
     mypi += spi(args[0], args[1], args[2])
 
 
