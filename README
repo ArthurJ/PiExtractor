@@ -1,0 +1,27 @@
+Projeto de brinquedo, calculador dos digitos de Pi com processamento paralelo
+
+Projeto em Python 3.6,
+
+
+Calcula Pi usando uma equação que converge rapidamente e é paralelizável.
+
+O programa pede o número de iterações que devem ser executadas,
+o número de processos que deve ser usado para realizar os cálculos,
+o arquivo em que o resultado deve ser escrito,
+e um arquivo com um resultado de comparação (em hexadecimal ou decimal).
+
+
+O programa escreve no std_out os valores encontrados em hexa e decimal,
+os tempos de processamento, conversão e comparação com os valores de referência,
+Número de digitos encontrados e digitos iguais a referência consecutivos.
+
+E escreve o resultado no arquivo com o nome determinado.
+
+
+Futuras adições (que seriam legais):
+- Compatibilidade com argumentos de linha de comando
+
+
+Fonte pata o arquivo pi100k: http://www.geom.uiuc.edu/~huberty/math5337/groupe/digits.html
+Fonte para o arquivo pi_ONE_MILLION: http://www.piday.org/million/ (para carregar todos os números precisa rolar muito a barra, vale escrever um código javascript para automatizar)
+Se um dia chegar a precisar: https://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt

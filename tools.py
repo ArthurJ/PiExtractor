@@ -42,39 +42,42 @@ def apresentar():
 
 
 def ask_pi_comparado(default='npix8k'):
-    default = input(f'\nQual o arquivo com o qual comparar o resultado?\n[{default}] -> ') or default
+    default = input(f'\nQual o arquivo com o a referência para comparar o resultado?\n[{default}] -> ') or default
 
     try:
         pi_padrao = open(default, 'r').read()
     except IOError:
         print(f'Não foi possível carregar o arquivo {default}', file=sys.stderr)
         return ''
+    resposta_hexa = input('O valor está em Hexadecimal? [Y/n] -> ') in ('', 'y', 'Y')
+    return pi_padrao, resposta_hexa
 
-    return pi_padrao
 
-
-def ask_parameters(num_iteracoes=100, num_processos=int(mp.cpu_count() * .75), nome='meupix'):
+def ask_parameters(num_iteracoes=900, num_processos=int(mp.cpu_count() * .75), nome='meupix'):
     numero_de_iteracoes = int(input(f'Número de Iterações à realizar?\n[{num_iteracoes}] -> ') or num_iteracoes)
-    casas = 3*numero_de_iteracoes
+    casas = int(3.2*numero_de_iteracoes)
     numero_de_processos = int(input(f'Dividir o processo em quantas partes?\n[{num_processos}] -> ') or num_processos)
     nome_arquivo = input(f'\nQual o nome do arquivo de saída?\n[{nome}] ->') or nome
 
     return numero_de_iteracoes, casas, numero_de_processos, nome_arquivo
 
 
-def print_relatorio(result, nome_saida, converted_result):
-    print('\n')
-    print(f'Valor Hexadecimal: {result}')
-
-    print(f'\nValor Decimal:')
+def pi_line_braker(converted_result):
     converted_result = str(converted_result)
     for i in range(len(converted_result)):
         print(f'{converted_result[i]}', end='')
-        if i % 100 == 0 and i != 0:
+        if i % 100 == 0:
             print()
-    print()
 
-    print(f'\nNúmero de dígitos obtidos: {str(len(result))}')
+
+def print_relatorio(result, nome_saida, converted_result):
+    print('\n\nValor Hexadecimal:')
+    pi_line_braker(result)
+
+    print('\n\nValor Decimal:')
+    pi_line_braker(converted_result)
+
+    print(f'\nNúmero de dígitos hexadecimais obtidos: {str(len(result))}\n')
 
     nome_saida = open(nome_saida, 'w')
     print(result, file=nome_saida)

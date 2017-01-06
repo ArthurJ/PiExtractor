@@ -37,8 +37,9 @@ def calc(args):
 def float_hex_2_float(str_pi_hex_digits, precisao) -> Decimal:
     getcontext().prec = precisao
     mypi10 = Decimal(0)
-    for i in range(len(str_pi_hex_digits) - 1, -1, -1):
-        mypi10 += Decimal(int(str_pi_hex_digits[i], base=16) * 16 ** -i)
+    casas_invalidas = int(0.01*precisao)
+    for i in range(len(str_pi_hex_digits) - casas_invalidas, -1, -1):
+        mypi10 += Decimal(int(str_pi_hex_digits[i], base=16)) * Decimal(16) ** -i
     return mypi10
 
 
@@ -56,7 +57,7 @@ def engine(numero_de_processos, intervalos):
         if not processos[k].is_alive():
             numero_de_processos -= 1
         else:
-            sleep(.01)
+            sleep(.1)
         k += 1
 
 
@@ -64,14 +65,18 @@ if __name__ == '__main__':
 
     apresentar()
     iteracoes, digitos, partes_do_processo, arquivo_saida = ask_parameters()
-    pi_comparado = ask_pi_comparado()
+    pi_comparado, hexa = ask_pi_comparado()
 
     mypi = 0
 
     engine(partes_do_processo, separa_intervalos(0, iteracoes, partes_do_processo, digitos))
 
     resultado = f'{mypi:x}'
-    print_relatorio(resultado, arquivo_saida, float_hex_2_float(resultado, int(iteracoes)))
+    convertido = float_hex_2_float(resultado, int(iteracoes))
+    print_relatorio(resultado, arquivo_saida, convertido)
 
     if pi_comparado:
-        compare_pi_comparado(pi_comparado, resultado)
+        if hexa:
+            compare_pi_comparado(pi_comparado, resultado)
+        else:
+            compare_pi_comparado(pi_comparado, str(convertido))
