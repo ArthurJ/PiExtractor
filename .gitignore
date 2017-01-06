@@ -1,0 +1,9 @@
+/out
+.idea
+*.iml
+*~
+*.log
+*.tar.gz
+__pycache__/*
+.vscode/*
+meupix
