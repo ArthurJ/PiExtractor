@@ -21,7 +21,9 @@ E escreve o resultado no arquivo com o nome determinado.
 Futuras adições (que seriam legais):
 - Compatibilidade com argumentos de linha de comando
 
+Fontes:
+- Fórmula usada: https://en.wikipedia.org/wiki/Bailey%E2%80%93Borwein%E2%80%93Plouffe_formula
+- Arquivo pi100k: http://www.geom.uiuc.edu/~huberty/math5337/groupe/digits.html
+- Arquivo pi_ONE_MILLION: http://www.piday.org/million/ (para carregar todos os números precisa rolar muito a barra, vale escrever um código javascript para automatizar)
 
-Fonte pata o arquivo pi100k: http://www.geom.uiuc.edu/~huberty/math5337/groupe/digits.html
-Fonte para o arquivo pi_ONE_MILLION: http://www.piday.org/million/ (para carregar todos os números precisa rolar muito a barra, vale escrever um código javascript para automatizar)
-Se um dia chegar a precisar: https://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt
+Caso necessário: https://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt
