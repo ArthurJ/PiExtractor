@@ -53,7 +53,7 @@ def ask_pi_comparado(default='npix8k'):
     return pi_padrao, resposta_hexa
 
 
-def ask_parameters(num_iteracoes=900, num_processos=int(mp.cpu_count() * .75), nome='meupix'):
+def ask_parameters(num_iteracoes=9999, num_processos=int(mp.cpu_count() * .75), nome='meupix'):
     numero_de_iteracoes = int(input(f'Número de Iterações à realizar?\n[{num_iteracoes}] -> ') or num_iteracoes)
     casas = int(3.2*numero_de_iteracoes)
     numero_de_processos = int(input(f'Dividir o processo em quantas partes?\n[{num_processos}] -> ') or num_processos)
