@@ -12,7 +12,7 @@ __author__ = '@arthurj'
 mypi = 0
 
 
-def spi(inicio, fim, quatro, dois, um):
+def spi(inicio, fim, quatro=4, dois=2, um=1):
     return sum((int(((quatro // (n8 + 1)) -
                      (dois // (n8 + 4)) -
                      (um // (n8 + 5)) -
@@ -29,9 +29,6 @@ def separa_intervalos(ini, fim, num_de_partes, casas):
 def calc(*args):
     # Não é a a melhor das práticas, mas compensa na limpeza do código, nesse caso
     global mypi
-    # TODO: Talvez uma alteração aqui possa melhorar o desempenho
-    # Fazendo o spi trabalhar com números menores, e aqui dando o "shift" necessário no bloco calculado
-    # antes de adicionar ao mypi
     mypi += spi(args[0], args[1], args[3], args[4], args[5])
 
 

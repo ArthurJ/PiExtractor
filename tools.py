@@ -4,6 +4,11 @@ from functools import wraps
 import multiprocessing as mp
 
 
+def hex_val(dec):
+    dec = int(dec)
+    return hex(dec)[2:]
+
+
 def time_it(funcao_captora=None, string_explicativa="Tempo de execução: {} segundos", repeat=1):
     """
     :param string_explicativa: String a mostrar detalhes da função monitorada. default = 1
@@ -55,6 +60,7 @@ def ask_pi_comparado(default='npix8k'):
 
 def ask_parameters(num_iteracoes=9999, num_processos=int(mp.cpu_count() * .75), nome='meupix'):
     numero_de_iteracoes = int(input(f'Número de Iterações à realizar?\n[{num_iteracoes}] -> ') or num_iteracoes)
+    numero_de_iteracoes = numero_de_iteracoes if numero_de_iteracoes >= 100 else 100
     casas = int(3.2*numero_de_iteracoes)
     numero_de_processos = int(input(f'Dividir o processo em quantas partes?\n[{num_processos}] -> ') or num_processos)
     nome_arquivo = input(f'\nQual o nome do arquivo de saída?\n[{nome}] ->') or nome
@@ -77,7 +83,7 @@ def print_relatorio(result, nome_saida, converted_result):
     print('\n\nValor Decimal:')
     pi_line_braker(converted_result)
 
-    print(f'\nNúmero de dígitos hexadecimais obtidos: {str(len(result))}\n')
+    print(f'\n\nNúmero de dígitos hexadecimais obtidos: {str(len(result))}\n')
 
     nome_saida = open(nome_saida, 'w')
     print(result, file=nome_saida)
